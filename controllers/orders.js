@@ -1,18 +1,21 @@
 import { JewelleryModel } from "../models/jewellery.js";
 import { orderModel ,orderValidator} from "../models/orders.js";
 import bcrypt from "bcryptjs";
+import mongoose from "mongoose";
 
 
  export const getOrderByUserId = async (req, res) => {
-    let { id } = req.user._id;
+    let  id  = req.user._id;
     try {
-        if (!mongoose.isValidObjectId(id)) {
-            res.status(400);
-            throw new Error('קוד לא הגיוני')
-        }
+        // if (!mongoose.isValidObjectId(id)) {
+        //     res.status(400);
+        //     throw new Error('קוד לא הגיוני')
+        // }
         
-        let allJewellery = await JewelleryModel.find({idCustomer:id});
-        return res.json(allJewellery)
+        let allOrder = await orderModel.find({idCustomer:id});
+        console.log(id)
+        console.log(allOrder)
+        return res.json(allOrder)
 
     }
     catch (err) {
@@ -53,7 +56,7 @@ export const addOrder = async (req, res) => {
         return res.status(404).json( result.error.details[0])
     try {
         
-        let newOrder = new orderModel({ orderDate, orderDeadline, addres, ordersProducts});
+        let newOrder = new orderModel({ orderDate, orderDeadline, addres, ordersProducts,idCustomer:req.user._id});
         await newOrder.save();
 
         return res.json(newOrder)

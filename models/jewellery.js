@@ -28,8 +28,8 @@ export const jewelleryValidator = (_jewellery) => {
 
 export const jewelleryUpdateValidator = (_jewellery) => {
     const jewelleryUpdateValidationSchema = Joi.object({
-        name: Joi.string().min(3).max(100),
-        price: Joi.number().min(0).max(10000),
+        name: Joi.string().min(3).max(100).required(),
+        price: Joi.number().min(0).max(10000).required(),
         description:Joi.string(),
         produceDate:Joi.date(),
        img:Joi.string().uri()

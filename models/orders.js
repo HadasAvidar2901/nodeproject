@@ -23,7 +23,7 @@ export const orderModel = mongoose.model("order", orderSchema);
 export const orderValidator = (_order) => {
     const orderValidationSchema = Joi.object({
         addres: Joi.string().min(3).max(100).required(),
-        idCustomer: Joi.string.min(0).max(10).required(),
+        idCustomer: Joi.string().min(0).max(100),
         orderDate:Joi.date(),
         orderDeadline:Joi.date(),
         ordersProducts:Joi.array(),
