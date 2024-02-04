@@ -7,14 +7,13 @@ import mongoose from "mongoose";
  export const getOrderByUserId = async (req, res) => {
     let  id  = req.user._id;
     try {
-        // if (!mongoose.isValidObjectId(id)) {
-        //     res.status(400);
-        //     throw new Error('קוד לא הגיוני')
-        // }
+         if (!mongoose.isValidObjectId(id)) {
+             res.status(400);
+             throw new Error('קוד לא הגיוני')
+         }
         
         let allOrder = await orderModel.find({idCustomer:id});
-        console.log(id)
-        console.log(allOrder)
+        
         return res.json(allOrder)
 
     }
